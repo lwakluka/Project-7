@@ -38,9 +38,8 @@ async function fetchJson(url, opts = {}) {
 
 /* ============ fetch functions ============ */
 async function fetchTrendingVideos() {
-  const url = `${API_BASE}/search?query=${encodeURIComponent(
-    "trending"
-  )}&hl=en&gl=US`;
+  const url = `${API_BASE}/search?query=latest videos&hl=en&gl=US`;
+
   try {
     showLoadingSkeleton();
     const data = await fetchJson(url, { headers });
