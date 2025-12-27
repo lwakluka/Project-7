@@ -1,0 +1,195 @@
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;700&display=swap');
+
+:root {
+    --sidebar-collapsed: 4rem;
+    /* mini width */
+    --sidebar-expanded: 15rem;
+    /* expanded width */
+    --sidebar-width: var(--sidebar-collapsed);
+}
+
+/* base */
+* {
+    box-sizing: border-box;
+    font-family: 'Plus Jakarta Sans', sans-serif;
+}
+
+body {
+    background: #000;
+    color: #fff;
+    margin: 0;
+}
+
+/* Sidebar base */
+.sidebar {
+    position: fixed;
+    left: 0;
+    top: 0;
+    height: 100vh;
+    background: #0f0f0f;
+    border-right: 1px solid rgba(148, 163, 184, 0.06);
+    padding-bottom: 2rem;
+    overflow: hidden;
+    transition: width 220ms ease, transform 220ms ease;
+    width: var(--sidebar-width);
+    z-index: 40;
+}
+
+/* On md+ start collapsed (mini) */
+@media (min-width: 768px) {
+    .sidebar {
+        --sidebar-width: var(--sidebar-collapsed);
+    }
+
+    /* expand on hover */
+    .sidebar:hover {
+        --sidebar-width: var(--sidebar-expanded);
+    }
+}
+
+/* Persistent expanded state via .expanded class */
+.sidebar.expanded {
+    --sidebar-width: var(--sidebar-expanded);
+}
+
+/* Mobile off-canvas state */
+.sidebar.open {
+    transform: translateX(0);
+    width: var(--sidebar-expanded);
+}
+
+@media (max-width: 767px) {
+    .sidebar {
+        transform: translateX(-110%);
+        width: var(--sidebar-expanded);
+    }
+}
+
+/* labels: hidden when collapsed */
+.sidebar-label {
+    display: inline-block;
+    transition: opacity 180ms ease, transform 180ms ease;
+    opacity: 1;
+}
+
+@media (min-width: 768px) {
+    .sidebar .sidebar-label {
+        opacity: 0;
+        transform: translateX(-8px);
+        pointer-events: none;
+    }
+
+    .sidebar:hover .sidebar-label {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+
+    .sidebar.expanded .sidebar-label {
+        opacity: 1;
+        transform: translateX(0);
+        pointer-events: auto;
+    }
+}
+
+/* sidebar top spacing */
+.sidebar-top {
+    padding-top: 1rem;
+    padding-bottom: .5rem;
+}
+
+/* nav links */
+.sidebar-link {
+    display: flex;
+    gap: 12px;
+    align-items: center;
+    color: #bfc7cf;
+    padding: 10px 8px;
+    border-radius: 8px;
+    transition: background 160ms, color 160ms;
+    margin-bottom: 4px;
+    text-decoration: none;
+}
+
+.sidebar-link ion-icon {
+    font-size: 20px;
+    min-width: 20px;
+}
+
+.sidebar-link:hover {
+    background: #171717;
+    color: #fff;
+}
+
+.sidebar-link.active {
+    background: #262626;
+    color: #fff;
+}
+
+/* ensure page content sits to the right of sidebar */
+.page-content {
+    padding-left: var(--sidebar-collapsed);
+    transition: padding-left 220ms ease;
+}
+
+@media (min-width: 768px) {
+    .sidebar:hover~.page-content {
+        padding-left: var(--sidebar-expanded);
+    }
+
+    .sidebar.expanded~.page-content {
+        padding-left: var(--sidebar-expanded);
+    }
+}
+
+@media (max-width: 767px) {
+    .page-content {
+        padding-left: 0;
+    }
+}
+
+/* results cards */
+img.rounded-lg {
+    border-radius: 8px;
+}
+
+.card-title {
+    line-height: 1.15;
+}
+
+/* logo & avatar styling */
+.logo-img {
+    width: 28px;
+    height: 28px;
+    object-fit: contain;
+}
+
+.avatar-img {
+    width: 40px;
+    height: 40px;
+    object-fit: cover;
+    border-radius: 9999px;
+}
+
+/* small tweaks */
+header {
+    backdrop-filter: blur(2px);
+}
+
+.sidebar .sidebar-top img {
+    display: inline-block;
+}
+
+/* scrollbar */
+::-webkit-scrollbar {
+    width: 8px;
+}
+
+::-webkit-scrollbar-thumb {
+    background: #333;
+    border-radius: 10px;
+}
+
+::-webkit-scrollbar-thumb:hover {
+    background: #555;
+}
